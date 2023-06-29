@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default}">
+    <head>
+        <title th:text="${status} + ' - ' + ${error}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h1 th:text="${status} + ' - ' + ${error}" class="mb-4" />
+            <p>The page you are looking for is not available right now.</p>
+        </div>
+    </body>
+</html>
