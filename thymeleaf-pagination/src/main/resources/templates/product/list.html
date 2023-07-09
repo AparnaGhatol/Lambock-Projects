@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default}">
+    <head>
+        <title>Products List</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">Products</h1>
+                <div>
+                    <a th:href="@{/products/add}" class="btn btn-primary ms-2">Add New Product</a>
+                </div>
+            </div>
+            <div th:if="${products.empty}">No products found!</div>
+            <div th:if="${!products.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price($)</th>
+                            <th scope="col">Discount(%)</th>
+                            <th scope="col">Stock Status</th>
+                            <th scope="col">SKU</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="product : ${products}">
+                            <td th:text="${product.id}" />
+                            <td th:text="${product.name}" />
+                            <td th:text="${product.price}" />
+                            <td th:text="${product.discount}" />
+                            <td th:text="${product.stockStatus}" />
+                            <td th:text="${product.sku}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-sm btn-info">Edit</a>
+                                    <form th:action="@{/products/delete/{id}(id=${product.id})}"
+                                            data-msg-confirm="Are you sure wants to delete?" method="post" class="fom-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div th:if="${pageList != null}" class="row g-0">
+			          <div th:text="${'Total pages '+pageList.totalPages+ ': Showing ' + ((pageList.start == pageList.end) ? ('' + pageList.start) : (pageList.start + '-' + pageList.end))+' of '+pageList.totalItems}" 
+			               th:classappend="${pageList.pages.size <= 3}? offset-sm-3" class="col-sm-3 text-sm-start" />
+			          <div class="col-sm-3">
+			            <div class="input-group input-group-sm justify-content-end">
+				            <div class="input-group-prepend">
+				              <label class="input-group-text" for="pageSize">Items /page:</label>
+				            </div>
+				            <form id="changeSize_form" th:action="@{/products}">
+					            <select name="size" onchange="changePageSize()" class="form-select input-small" aria-label=".form-select-sm" id="pageSize">
+					              <option th:each="recordsPerpage : ${ {3, 10, 20, 50, 100} }" th:value="${recordsPerpage}" th:text="${recordsPerpage}" th:selected="${recordsPerpage == pageList.size}"></option>
+					            </select>
+				            </form>
+				          </div>
+			          </div>
+			          <nav th:if="${pageList.pages.size > 3}" class="col-sm-6">
+			                <ul class="pagination justify-content-end">
+			                    <li th:each="page_ : ${pageList.pages}" th:classappend="${(page_.active ? 'active' : '') + (page_.disabled ? ' disabled' : '')}" class="page-item">
+			                        <a th:href="${page_.path}" th:text="${page_.name}" class="page-link" />
+			                    </li>
+			                </ul>
+			           </nav>
+			        </div>
+		        </div>
+            </div>
+        </div>
+    </body>
+</html>
