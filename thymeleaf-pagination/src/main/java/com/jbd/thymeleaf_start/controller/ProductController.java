@@ -41,6 +41,17 @@ public class ProductController {
         model.addAttribute("pageList", PaginationUtils.getPageList(page));
         return "product/list";
     }
+    
+    // To demonstrate pagination using thymeleaf-spring-data-dialect
+    @GetMapping("pagination-2")
+    public String list_2(@SortDefault("id") final Pageable pageable,
+            final Model model) {
+    	
+    	Page<ProductDTO> page = productService.findAll(pageable);
+        model.addAttribute("products", page);
+        
+        return "product/list-2";
+    }
 
     // to show a page to add a product
     @GetMapping("/add")
