@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default}">
+    <head>
+        <title>Edit Product</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">Product Details</h1>
+                <div>
+                    <a th:href="@{/products}" class="btn btn-success">Products List</a>
+                </div>
+            </div>
+            
+           <form th:action="@{/products/edit/{id}(id=${product.id})}" method="post" th:object="${product}">
+                <div class="row mb-3">
+		            <label for="name" class="col-md-2 col-form-label"><span>Name</span><span>*</span></label>
+		            <div class="col-md-10">
+		                <input type="text" th:field="*{name}" class="form-control" id="name" name="name">
+		                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+		            </div>
+		        </div>
+		        <div class="row mb-3">
+		            <label for="price" class="col-md-2 col-form-label"><span>Price($)</span><span>*</span></label>
+		            <div class="col-md-10">
+		                <input type="number" th:field="*{price}" class="form-control" id="price" name="price">
+		                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></span>
+		            </div>
+		        </div>
+                <div class="row mb-3">
+		            <label for="discount" class="col-md-2 col-form-label"><span>Discount(%)</span></label>
+		            <div class="col-md-10">
+		                <input type="number" th:field="*{discount}" class="form-control" id="discount" name="discount">
+		                <span th:if="${#fields.hasErrors('discount')}" th:errors="*{discount}" class="text-danger"></span>
+		            </div>
+		        </div>
+                <div class="row mb-3">
+		            <label for="stockStatus" class="col-md-2 col-form-label"><span>Stock Status</span></label>
+		            <div class="col-md-10">
+		                <input type="text" th:field="*{stockStatus}" class="form-control" id="stockStatus" name="stockStatus">
+		                <span th:if="${#fields.hasErrors('stockStatus')}" th:errors="*{stockStatus}" class="text-danger"></span>
+		            </div>
+		        </div>
+		        <div class="row mb-3">
+		            <label for="stockStatus" class="col-md-2 col-form-label"><span>SKU</span></label>
+		            <div class="col-md-10">
+		                <input type="text" th:field="*{sku}" class="form-control" id="sku" name="sku">
+		                <span th:if="${#fields.hasErrors('sku')}" th:errors="*{sku}" class="text-danger"></span>
+		            </div>
+		        </div>            
+                <input type="submit" value="Edit Product" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
