@@ -1,4 +1,5 @@
-## Spring Boot Thymeleaf + Webflux Reactive Example with H2/MySQL DB and Bootstrap CSS
+## Spring Boot Thymeleaf + Webflux Reactive 
+###Example with H2/MySQL DB and Bootstrap CSS
 
 This app created for Beginners who wants to learn Reactive webFlux + Spring Boot with Thymeleaf
 
@@ -14,4 +15,4 @@ mvn clean install
 mvn spring-boot:run
 
 ```
-Read Article: [Spring Boot with Thymeleaf Pagination](https://javabydeveloper.com/spring-reactive-webflux-with-thymeleaf/)
+Read Article: [Spring Reactive WebFlux with Thymeleaf](https://javabydeveloper.com/spring-reactive-webflux-with-thymeleaf/)
