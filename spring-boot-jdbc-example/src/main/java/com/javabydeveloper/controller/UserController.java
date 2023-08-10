@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.javabydeveloper.model.User;
 import com.javabydeveloper.template.UserJdbcTemplate;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
@@ -50,7 +50,6 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") final Long userId) {
-
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new NoSuchElementException("User not availbele for Id :" + userId));
 
@@ -99,7 +98,6 @@ public class UserController {
 	}
 
 	// Read - by sorted and paginated
-	
 	@GetMapping(params = { "page", "size", "sortBy" })
 	public List<User> findAllBySortAndPage(@RequestParam("page") final int page, @RequestParam("size") final int size,
 			@RequestParam("sortBy") final String sortBy, @RequestParam("sortOrder") final String sortOrder) {
@@ -115,7 +113,6 @@ public class UserController {
 	}
 
 	// Read - by only paginated
-	
 	@GetMapping(params = { "page", "size" })
 	public List<User> findAllByPage(@RequestParam("page") final int page, @RequestParam("size") final int size) {
 
@@ -130,7 +127,6 @@ public class UserController {
 	}
 
 	// Read - by only sorted
-	
 	@GetMapping(params = { "sortBy" })
 	public List<User> findAllBySort(@RequestParam("sortBy") final String sortBy,
 			@RequestParam("sortOrder") final String sortOrder) {

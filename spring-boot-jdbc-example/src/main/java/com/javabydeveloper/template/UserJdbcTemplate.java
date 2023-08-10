@@ -53,6 +53,7 @@ public class UserJdbcTemplate {
 	}
 
 	public int update(User user) {
+		
 		return jdbcTemplate.update("UPDATE USER SET PASSWORD = ? WHERE ID = ?", user.getPassword(), user.getId());
 	}
 
