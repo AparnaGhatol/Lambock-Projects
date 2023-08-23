@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default}">
+<head>
+<title>Spring Boot Convert Markdown to HTML</title>
+</head>
+<body>
+	<div layout:fragment="content">
+			<div class="row">
+				<div class="card col-lg-6 col-md-6 border border-primary">
+				      <div class="card-header text-center">
+					    <h5 class="card-title">Markdown</h5>
+					  </div>
+					  <div class="card-body">
+					     <form id="markdown-form" th:action="@{/markdown/convert-to-html}" method="post" th:object="${markdown}">
+					        <textarea autocomplete="off" class="form-control" name="markdowncode" id="simple-mde" th:field="*{markdownCode}" style="white-space: pre-line" rows="22"></textarea>
+					     </form>			   		
+					  </div>
+					  <div class="card-footer">					
+					    <button id="convert-to-html" type="button" class="btn btn-primary float-end">Convert</button>		
+					  </div>
+				</div>
+				<div class="card col-lg-6 col-md-6 border border-success">
+				      <div class="card-header text-center">
+					    <h5 class="card-title">Output</h5>
+					  </div>
+					  <div id="html-out" class="card-body" th:utext="${markdown.htmlResponse}"></div>					
+				</div>
+		</div>
+	</div>
+</body>
+</html>
