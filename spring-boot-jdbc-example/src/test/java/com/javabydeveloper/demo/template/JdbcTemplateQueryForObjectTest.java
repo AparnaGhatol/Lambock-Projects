@@ -15,6 +15,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.DataClassRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -170,6 +171,20 @@ public class JdbcTemplateQueryForObjectTest extends BaseTest {
 		String sql = "SELECT * FROM USER WHERE USERNAME = ? AND USERTYPE = ?";
 		
 		final User user = jdbcTemplate.queryForObject(sql, new UserMapper(), "DonaldT", UserType.STUDENT.name());
+		System.out.println(user);
+		assertTrue("DonaldT".equals(user.getUserName()));
+	}
+	
+	@Test
+	@DisplayName("queryForObject()7")
+	@Order(10)
+	void userWithDataClassRowMapperWithArgs() {
+		
+		// queryForObject(String sql, RowMapper<T> rowMapper, Object... args)
+		
+		String sql = "SELECT * FROM USER WHERE USERNAME = ? AND USERTYPE = ?";
+		
+		final User user = jdbcTemplate.queryForObject(sql, new DataClassRowMapper<User>(), "DonaldT", UserType.STUDENT.name());
 		System.out.println(user);
 		assertTrue("DonaldT".equals(user.getUserName()));
 	}
