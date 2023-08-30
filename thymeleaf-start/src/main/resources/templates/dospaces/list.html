@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default}">
+    <head>
+        <title>DigitalOcean Spaces</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">Upload files in DigitalOcean Spaces</h1>
+            </div>
+			<div class="card">
+				<div class="card-body">
+					<form method="post" th:action="@{/dospaces/upload}" enctype="multipart/form-data">
+					    <div class="mb-3">			
+						  <input class="form-control" type="text" name="fileName" id="filename" placeholder="Enetr File Name" required="required">
+						</div>
+					    <div class="mb-3">
+						  <label for="formFile" class="form-label">Select Media file from your device</label>
+						  <input class="form-control" type="file" name="mediafile" accept="image/*" id="formFile" required="required">
+						</div>
+	                
+	                    <button type="submit" class="btn btn-primary float-end">Upload image</button>
+	                </form>
+				</div>
+			</div>
+		 <div th:if="${mediaFiles.empty}" class="mt-4">No media files found!</div>
+		      <div th:if="${!mediaFiles.empty}" class="table-responsive mt-3">
+			      <div id="products" class="row view-group">
+		                <div class="item col-xs-3 col-lg-3" th:each="media : ${mediaFiles}">
+		                    <div class="thumbnail card mt-2">
+		                        <div class="img-event">
+		                            <img class="group list-group-image img-fluid" th:src="${media.mediaLocation}" alt="" />
+		                        </div>
+		                        <div class="caption card-body">
+		                            <h5 th:text="${media.name}" class="group card-title inner list-group-item-heading"></h5>
+		                           
+		                            <div class="row">
+		                                <div class="col-xs-12 col-md-6">
+		                                    <a class="btn btn-sm btn-success" th:href="@{/dospaces/{fileName}(fileName=${media.name})}">Download Media</a>
+		                                </div>
+		                                <div class="col-xs-12 btn-sm col-md-6">
+		                                    <form th:action="@{/dospaces/delete/{id}(id=${media.id})}" data-msg-confirm="Are you sure wants to delete?" method="post" class="fom-submit-confirm d-inline">
+		                                        <button type="submit" class="btn btn-sm btn-danger right-end">Delete Media</button>
+		                                    </form>
+		                                </div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>             
+		           </div>
+		       </div>
+         </div>
+    </body>
+</html>

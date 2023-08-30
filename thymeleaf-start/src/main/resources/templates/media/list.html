@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/default}">
+    <head>
+        <title>Products List</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">Media Files</h1>
+            </div>
+			<div class="card">
+				<div class="card-body">
+					<form method="post" th:action="@{/media/upload}" enctype="multipart/form-data">
+					    <div class="mb-3">
+						  <label for="formFile" class="form-label">Select Media file from your device</label>
+						  <input class="form-control" type="file" multiple="multiple" name="mediafile" accept="image/*" required="required">
+						</div>
+	                
+	                    <button type="submit" class="btn btn-primary float-end">Upload image</button>
+	                </form>
+				</div>
+			</div>
+		 <div th:if="${mediaFiles.empty}" class="mt-4">No media files found!</div>
+            <div th:if="${!mediaFiles.empty}" class="table-responsive mt-3">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Media Type</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="media : ${mediaFiles}">
+                            <td th:text="${media.id}" />
+                            <td th:text="${media.name}" />
+                            <td th:text="${media.mediaType}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/media/{fileName}(fileName=${media.name})}" class="btn btn-sm btn-info">Download Media</a>
+                                    <form th:action="@{/media/delete/{id}(id=${media.id})}"
+                                            data-msg-confirm="Are you sure wants to delete?" method="post" class="fom-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete Media</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
